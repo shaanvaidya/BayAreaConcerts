@@ -161,7 +161,7 @@ body.theme-is-dark .theme-toggle .icon-moon { display: block; }
   font-size: 0.85rem;
   color: var(--text-dim);
   background: var(--bg-raised);
-  border: none;
+  border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 0.4rem 0.8rem;
   white-space: nowrap;
@@ -251,7 +251,7 @@ body.theme-is-dark .theme-toggle .icon-moon { display: block; }
 }
 
 .empty-state {
-  color: var(--text-faint);
+  color: var(--text-dim);
   padding: 2.5rem 0;
   text-align: center;
   display: none;
