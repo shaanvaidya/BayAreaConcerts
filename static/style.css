@@ -23,9 +23,8 @@
   --violet: #b565f5;
   --sky: #4fb2ff;
 
-  --font-display: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+  --font-display: "Avenir Next", "Avenir", Futura, "Century Gothic", -apple-system, "Segoe UI", sans-serif;
   --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-  --font-serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
 }
 
 @media (prefers-color-scheme: light) {
@@ -77,7 +76,8 @@ body {
 
 .masthead h1 {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 800;
+  letter-spacing: -0.01em;
   font-size: clamp(2.4rem, 8vw, 3.6rem);
   line-height: 1.05;
   margin: 0 0 1.1rem;
@@ -89,7 +89,7 @@ body {
 }
 
 .masthead h1 em {
-  font-style: italic;
+  font-style: normal;
   background: linear-gradient(100deg, var(--violet) 0%, var(--sky) 100%);
   -webkit-background-clip: text;
   background-clip: text;
@@ -231,8 +231,9 @@ body {
 }
 
 .show-row .title {
-  font-family: var(--font-serif);
-  font-size: 1.05rem;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 1rem;
 }
 
 .show-row .tag {
