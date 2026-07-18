@@ -7,30 +7,17 @@
 <meta name="description" content="Weekly-refreshed concert listings across Bay Area venues — Fillmore, Warfield, Independent, Bottom of the Hill, and more.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%2315130f'/%3E%3Ctext x='50' y='68' font-size='60' text-anchor='middle' fill='%23ff5433'%3E%E2%99%AB%3C/text%3E%3C/svg%3E">
 <style>
-/*
-  Concept: Fillmore poster energy - the psychedelic rock-poster tradition
-  (Bill Graham, Wes Wilson) that literally started at one of the venues in
-  this list. A warm, deep "velvet concert hall" ground, a rotating set of
-  poster-ink hues carrying each venue's identity, and a bold colorful
-  headline treatment - kept quiet everywhere else so the color reads as
-  intentional, not noisy.
-*/
-
 :root {
-  --bg: #1c1420;
-  --bg-raised: #2a1f2e;
-  --bg-row-hover: #33262f;
-  --text: #f5ece2;
-  --text-dim: #b8a8ae;
-  --text-faint: #7d6d74;
-  --line: #3a2c34;
-
-  --pink: #ff4d94;
-  --orange: #ff8a3d;
-  --gold: #ffc93c;
-  --teal: #2dd4bf;
-  --violet: #b565f5;
-  --sky: #4fb2ff;
+  --bg: #17181c;
+  --bg-raised: #1f2126;
+  --bg-row-hover: #26282e;
+  --text: #e8e8ea;
+  --text-dim: #9a9ba1;
+  --text-faint: #616269;
+  --line: #2a2c32;
+  --accent: #ff6b7f;
+  --accent-soft: #3a2028;
+  --accent-text: #ff97a5;
 
   --font-display: "Avenir Next", "Avenir", Futura, "Century Gothic", -apple-system, "Segoe UI", sans-serif;
   --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
@@ -38,21 +25,43 @@
 
 @media (prefers-color-scheme: light) {
   :root {
-    --bg: #f7e6de;
-    --bg-raised: #efd6c7;
-    --bg-row-hover: #e6c8b5;
-    --text: #2a1620;
-    --text-dim: #6b4a52;
-    --text-faint: #96767c;
-    --line: #ddc2b0;
-
-    --pink: #d6266e;
-    --orange: #c85a1a;
-    --gold: #a8790a;
-    --teal: #0d8f83;
-    --violet: #8134c4;
-    --sky: #1c7cc4;
+    --bg: #fafafa;
+    --bg-raised: #f0f0f0;
+    --bg-row-hover: #e6e6e6;
+    --text: #191a1d;
+    --text-dim: #63646a;
+    --text-faint: #8f9096;
+    --line: #e2e2e2;
+    --accent: #d9315a;
+    --accent-soft: #fbe3e8;
+    --accent-text: #b8244a;
   }
+}
+
+:root[data-theme="dark"] {
+  --bg: #17181c;
+  --bg-raised: #1f2126;
+  --bg-row-hover: #26282e;
+  --text: #e8e8ea;
+  --text-dim: #9a9ba1;
+  --text-faint: #616269;
+  --line: #2a2c32;
+  --accent: #ff6b7f;
+  --accent-soft: #3a2028;
+  --accent-text: #ff97a5;
+}
+
+:root[data-theme="light"] {
+  --bg: #fafafa;
+  --bg-raised: #f0f0f0;
+  --bg-row-hover: #e6e6e6;
+  --text: #191a1d;
+  --text-dim: #63646a;
+  --text-faint: #8f9096;
+  --line: #e2e2e2;
+  --accent: #d9315a;
+  --accent-soft: #fbe3e8;
+  --accent-text: #b8244a;
 }
 
 * { box-sizing: border-box; }
@@ -67,17 +76,23 @@ body {
 }
 
 .wrap {
-  max-width: 820px;
+  max-width: 780px;
   margin: 0 auto;
   padding: 3rem 1.25rem 6rem;
 }
 
 /* ---- masthead ---- */
 
+.masthead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
 .masthead .kicker {
-  font-family: var(--font-body);
   font-size: 0.78rem;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-faint);
   margin: 0 0 0.6rem;
@@ -87,36 +102,50 @@ body {
   font-family: var(--font-display);
   font-weight: 800;
   letter-spacing: -0.01em;
-  font-size: clamp(2.4rem, 8vw, 3.6rem);
-  line-height: 1.05;
-  margin: 0 0 1.1rem;
+  font-size: clamp(2.1rem, 6.5vw, 2.9rem);
+  line-height: 1.08;
+  margin: 0;
   text-wrap: balance;
-  background: linear-gradient(100deg, var(--pink) 0%, var(--orange) 45%, var(--gold) 85%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--text);
 }
 
-.masthead h1 em {
-  font-style: normal;
-  background: linear-gradient(100deg, var(--violet) 0%, var(--sky) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+.theme-toggle {
+  flex: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--bg-raised);
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-top: 0.15rem;
 }
 
-.masthead .sub {
+.theme-toggle:hover, .theme-toggle:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.theme-toggle svg { width: 1.15rem; height: 1.15rem; }
+.theme-toggle .icon-moon { display: none; }
+body.theme-is-dark .theme-toggle .icon-sun { display: none; }
+body.theme-is-dark .theme-toggle .icon-moon { display: block; }
+
+.sub {
   font-size: 0.88rem;
   color: var(--text-dim);
   display: flex;
   flex-wrap: wrap;
   gap: 0.3rem 1.1rem;
+  margin: 1rem 0 1.6rem;
   padding-bottom: 1.6rem;
   border-bottom: 1px solid var(--line);
-  margin-bottom: 1.75rem;
 }
 
-.masthead .sub b {
+.sub b {
   color: var(--text);
   font-weight: 700;
 }
@@ -150,7 +179,7 @@ body {
 
 .search-input:focus {
   outline: none;
-  border-color: var(--pink);
+  border-color: var(--accent);
 }
 
 .quick-range, .venue-pills {
@@ -174,19 +203,13 @@ body {
 
 .quick-range button:hover, .venue-pills button:hover,
 .quick-range button:focus-visible, .venue-pills button:focus-visible {
-  border-color: var(--pink);
+  border-color: var(--accent);
   color: var(--text);
 }
 
-.quick-range button.active {
-  background: var(--pink);
+.quick-range button.active, .venue-pills button.active {
+  background: var(--accent);
   color: #fff;
-}
-
-.venue-pills button.active {
-  color: var(--bg);
-  font-weight: 700;
-  border-color: transparent;
 }
 
 .venue-pills { padding-top: 0.1rem; }
@@ -217,26 +240,15 @@ body {
   white-space: nowrap;
 }
 
-.show-row.soon .date { color: var(--pink); }
+.show-row.soon .date { color: var(--accent-text); }
 
 .show-row .venue {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
   font-family: var(--font-body);
-  font-size: 0.74rem;
-  font-weight: 600;
+  font-size: 0.78rem;
   color: var(--text-faint);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.show-row .venue .dot {
-  width: 0.55rem;
-  height: 0.55rem;
-  border-radius: 50%;
-  flex: none;
 }
 
 .show-row .title {
@@ -251,8 +263,8 @@ body {
   font-weight: 700;
   letter-spacing: 0.03em;
   text-transform: uppercase;
-  color: #fff;
-  background: var(--pink);
+  color: var(--accent-text);
+  background: var(--accent-soft);
   border-radius: 999px;
   padding: 0.22rem 0.55rem;
   white-space: nowrap;
@@ -277,29 +289,41 @@ footer {
 }
 
 footer a { color: var(--text-dim); }
-footer a:hover { color: var(--pink); }
+footer a:hover { color: var(--accent); }
 
 @media (max-width: 560px) {
   .show-row { grid-template-columns: 4.2rem 1fr auto; }
-  .show-row .venue { grid-column: 2 / 4; order: 3; font-size: 0.7rem; }
+  .show-row .venue { grid-column: 2 / 4; order: 3; font-size: 0.72rem; }
   .show-row .title { grid-column: 2 / 4; order: 2; }
   .show-row .date { order: 1; }
   .show-row .tag { order: 1; justify-self: end; }
 }
 
 </style>
+<script>
+(function () {
+  var saved = localStorage.getItem("theme");
+  if (saved === "dark" || saved === "light") {
+    document.documentElement.setAttribute("data-theme", saved);
+  }
+})();
+</script>
 </head>
 <body>
   <div class="wrap">
+    <p class="kicker">Bay Area Live Music, Every Week</p>
     <header class="masthead">
-      <p class="kicker">Bay Area Live Music, Every Week</p>
-      <h1>Bay Area <em>Concerts</em></h1>
-      <div class="sub">
-        <span><b id="stat-total">638</b> shows tracked</span>
-        <span>last checked <b id="stat-date">2026-07-18</b></span>
-        <span>checks weekly, Mondays</span>
-      </div>
+      <h1>Bay Area Concerts</h1>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark and light theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path></svg>
+      </button>
     </header>
+    <div class="sub">
+      <span><b id="stat-total">638</b> shows tracked</span>
+      <span>last checked <b id="stat-date">2026-07-18</b></span>
+      <span>checks weekly, Mondays</span>
+    </div>
 
     <div class="controls">
       <input class="search-input" id="search" type="text" placeholder="Filter by artist or venue&hellip;" autocomplete="off">
@@ -326,21 +350,39 @@ footer a:hover { color: var(--pink); }
 (function () {
   "use strict";
 
+  // --- theme toggle ---
+  function effectiveTheme() {
+    var explicit = document.documentElement.getAttribute("data-theme");
+    if (explicit === "dark" || explicit === "light") return explicit;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+
+  function applyThemeClass() {
+    document.body.classList.toggle("theme-is-dark", effectiveTheme() === "dark");
+  }
+
+  applyThemeClass();
+
+  var themeToggle = document.getElementById("theme-toggle");
+  themeToggle.addEventListener("click", function () {
+    var next = effectiveTheme() === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+    localStorage.setItem("theme", next);
+    applyThemeClass();
+  });
+
+  if (window.matchMedia) {
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function () {
+      if (!localStorage.getItem("theme")) applyThemeClass();
+    });
+  }
+
+  // --- listings ---
   var data = JSON.parse(document.getElementById("show-data").textContent);
   var shows = data.shows;
   var today = new Date();
   today.setHours(0, 0, 0, 0);
   var REMINDER_WINDOW_DAYS = 10;
-
-  var VENUE_HUES = ["--pink", "--orange", "--gold", "--teal", "--violet", "--sky"];
-
-  function venueColor(name) {
-    var hash = 0;
-    for (var i = 0; i < name.length; i++) {
-      hash = (hash * 31 + name.charCodeAt(i)) >>> 0;
-    }
-    return "var(" + VENUE_HUES[hash % VENUE_HUES.length] + ")";
-  }
 
   var state = {
     query: "",
@@ -370,7 +412,6 @@ footer a:hover { color: var(--pink); }
   // --- venue pills ---
   var venuePillsEl = document.getElementById("venue-pills");
   data.venues.forEach(function (venue) {
-    var color = venueColor(venue);
     var btn = document.createElement("button");
     btn.type = "button";
     btn.textContent = venue;
@@ -379,11 +420,9 @@ footer a:hover { color: var(--pink); }
       if (state.venues.has(venue)) {
         state.venues.delete(venue);
         btn.classList.remove("active");
-        btn.style.background = "";
       } else {
         state.venues.add(venue);
         btn.classList.add("active");
-        btn.style.background = color;
       }
       render();
     });
@@ -444,11 +483,7 @@ footer a:hover { color: var(--pink); }
 
       var venueEl = document.createElement("span");
       venueEl.className = "venue";
-      var dot = document.createElement("span");
-      dot.className = "dot";
-      dot.style.background = venueColor(show.venue);
-      venueEl.appendChild(dot);
-      venueEl.appendChild(document.createTextNode(show.venue));
+      venueEl.textContent = show.venue;
       row.appendChild(venueEl);
 
       var titleEl = document.createElement("span");
