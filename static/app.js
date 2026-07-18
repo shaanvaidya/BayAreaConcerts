@@ -34,6 +34,7 @@
   var today = new Date();
   today.setHours(0, 0, 0, 0);
   var REMINDER_WINDOW_DAYS = 10;
+  var NEW_WINDOW_DAYS = 7;
 
   var state = {
     query: "",
@@ -44,6 +45,11 @@
   function daysUntil(dateStr) {
     var d = new Date(dateStr + "T00:00:00");
     return Math.round((d - today) / 86400000);
+  }
+
+  function daysSince(dateStr) {
+    var d = new Date(dateStr + "T00:00:00");
+    return Math.round((today - d) / 86400000);
   }
 
   function formatDate(dateStr) {
@@ -142,11 +148,26 @@
       titleEl.textContent = show.title;
       row.appendChild(titleEl);
 
-      if (du <= REMINDER_WINDOW_DAYS) {
-        var tag = document.createElement("span");
-        tag.className = "tag";
-        tag.textContent = du === 0 ? "Today" : du + "d";
-        row.appendChild(tag);
+      var isNew = daysSince(show.first_seen) >= 0 && daysSince(show.first_seen) <= NEW_WINDOW_DAYS;
+      if (isNew || du <= REMINDER_WINDOW_DAYS) {
+        var tagsEl = document.createElement("span");
+        tagsEl.className = "tags";
+
+        if (isNew) {
+          var newTag = document.createElement("span");
+          newTag.className = "tag tag-new";
+          newTag.textContent = "New";
+          tagsEl.appendChild(newTag);
+        }
+
+        if (du <= REMINDER_WINDOW_DAYS) {
+          var soonTag = document.createElement("span");
+          soonTag.className = "tag tag-soon";
+          soonTag.textContent = du === 0 ? "Today" : du + "d";
+          tagsEl.appendChild(soonTag);
+        }
+
+        row.appendChild(tagsEl);
       }
 
       listEl.appendChild(row);

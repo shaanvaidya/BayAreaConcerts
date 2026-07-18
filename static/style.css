@@ -224,16 +224,30 @@ body.theme-is-dark .theme-toggle .icon-moon { display: block; }
   color: var(--text);
 }
 
+.show-row .tags {
+  display: flex;
+  gap: 0.35rem;
+}
+
 .show-row .tag {
   font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.02em;
   text-transform: uppercase;
-  color: var(--bg);
-  background: var(--accent);
   border-radius: 999px;
   padding: 0.2rem 0.55rem;
   white-space: nowrap;
+}
+
+.show-row .tag-soon {
+  color: var(--bg);
+  background: var(--accent);
+}
+
+.show-row .tag-new {
+  color: var(--accent);
+  background: transparent;
+  border: 1px solid var(--accent);
 }
 
 .empty-state {
@@ -271,5 +285,5 @@ footer a:hover {
   .show-row .venue { grid-column: 2 / 4; order: 3; font-size: 0.78rem; }
   .show-row .title { grid-column: 2 / 4; order: 2; }
   .show-row .date { order: 1; }
-  .show-row .tag { order: 1; justify-self: end; }
+  .show-row .tags { order: 1; justify-self: end; }
 }

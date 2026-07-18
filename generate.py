@@ -19,7 +19,13 @@ def load_shows(state_path: Path) -> dict:
         raise ValueError(f"unexpected schema_version {state.get('schema_version')!r} - state.json format may have changed")
 
     shows = [
-        {"venue": s["venue"], "title": s["title"], "date": s["date"], "url": s["url"]}
+        {
+            "venue": s["venue"],
+            "title": s["title"],
+            "date": s["date"],
+            "url": s["url"],
+            "first_seen": s.get("first_seen", s["date"]),
+        }
         for s in state["shows"].values()
     ]
     shows.sort(key=lambda s: s["date"])
