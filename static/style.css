@@ -212,7 +212,8 @@ body.theme-is-dark .theme-toggle .icon-moon { display: block; }
 
 .show-row .venue {
   font-size: 0.85rem;
-  color: var(--text-faint);
+  font-weight: 500;
+  color: var(--text-dim);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
