@@ -7,6 +7,16 @@
   today.setHours(0, 0, 0, 0);
   var REMINDER_WINDOW_DAYS = 10;
 
+  var VENUE_HUES = ["--pink", "--orange", "--gold", "--teal", "--violet", "--sky"];
+
+  function venueColor(name) {
+    var hash = 0;
+    for (var i = 0; i < name.length; i++) {
+      hash = (hash * 31 + name.charCodeAt(i)) >>> 0;
+    }
+    return "var(" + VENUE_HUES[hash % VENUE_HUES.length] + ")";
+  }
+
   var state = {
     query: "",
     venues: new Set(),
@@ -35,6 +45,7 @@
   // --- venue pills ---
   var venuePillsEl = document.getElementById("venue-pills");
   data.venues.forEach(function (venue) {
+    var color = venueColor(venue);
     var btn = document.createElement("button");
     btn.type = "button";
     btn.textContent = venue;
@@ -43,9 +54,11 @@
       if (state.venues.has(venue)) {
         state.venues.delete(venue);
         btn.classList.remove("active");
+        btn.style.background = "";
       } else {
         state.venues.add(venue);
         btn.classList.add("active");
+        btn.style.background = color;
       }
       render();
     });
@@ -106,7 +119,11 @@
 
       var venueEl = document.createElement("span");
       venueEl.className = "venue";
-      venueEl.textContent = show.venue;
+      var dot = document.createElement("span");
+      dot.className = "dot";
+      dot.style.background = venueColor(show.venue);
+      venueEl.appendChild(dot);
+      venueEl.appendChild(document.createTextNode(show.venue));
       row.appendChild(venueEl);
 
       var titleEl = document.createElement("span");
