@@ -49,7 +49,6 @@
   var shows = data.shows;
   var today = new Date();
   today.setHours(0, 0, 0, 0);
-  var REMINDER_WINDOW_DAYS = 10;
   var NEW_WINDOW_DAYS = 7;
 
   var state = {
@@ -147,7 +146,7 @@
       row.rel = "noopener noreferrer";
 
       var du = daysUntil(show.date);
-      if (du <= REMINDER_WINDOW_DAYS) row.classList.add("soon");
+      if (du === 0) row.classList.add("soon");
       if (show.sold_out) row.classList.add("sold-out");
 
       var dateEl = document.createElement("span");
@@ -168,8 +167,8 @@
       var isNew = daysSince(show.first_seen) >= 0 && daysSince(show.first_seen) <= NEW_WINDOW_DAYS;
       // Once sold out, "book soon" no longer applies - drop the reminder
       // tag but keep "New" (still informative: it may have sold out
-      // immediately).
-      var showReminder = !show.sold_out && du <= REMINDER_WINDOW_DAYS;
+      // immediately). Only flag same-day shows - no "Xd" countdown tags.
+      var showReminder = !show.sold_out && du === 0;
       if (isNew || showReminder || show.sold_out) {
         var tagsEl = document.createElement("span");
         tagsEl.className = "tags";
@@ -191,7 +190,7 @@
         if (showReminder) {
           var soonTag = document.createElement("span");
           soonTag.className = "tag tag-soon";
-          soonTag.textContent = du === 0 ? "Today" : du + "d";
+          soonTag.textContent = "Today";
           tagsEl.appendChild(soonTag);
         }
 
