@@ -128,38 +128,38 @@ body.theme-is-dark .theme-toggle .icon-moon { display: block; }
   z-index: 1000;
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
   gap: 8px;
 }
 
 .scroll-button {
+  font-family: var(--font);
+  font-size: 0.8rem;
+  font-weight: 600;
   background: var(--bg-raised);
   border: 1px solid var(--line);
   cursor: pointer;
-  padding: 8px;
-  color: var(--text);
+  padding: 0.45rem 0.9rem;
+  color: var(--text-dim);
   opacity: 0;
   visibility: hidden;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 0.2s ease, visibility 0.2s ease, background 0.2s ease;
+  border-radius: 999px;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  transition: opacity 0.2s ease, visibility 0.2s ease, background 0.2s ease, color 0.2s ease;
 }
 
 .scroll-button.visible {
-  opacity: 0.85;
+  opacity: 0.92;
   visibility: visible;
 }
 
 .scroll-button:hover, .scroll-button:focus-visible {
   opacity: 1;
+  color: var(--text);
   background: var(--bg-row-hover);
   outline: none;
 }
-
-.scroll-button svg { width: 1.15rem; height: 1.15rem; }
 
 /* ---- controls ---- */
 
