@@ -28,23 +28,16 @@
     });
   }
 
-  // --- scroll to top/bottom ---
+  // --- scroll to top ---
   var scrollTopBtn = document.getElementById("scroll-top");
-  var scrollBottomBtn = document.getElementById("scroll-bottom");
   var SCROLL_EDGE_THRESHOLD = 400;
 
   function updateScrollButtons() {
-    var scrollY = window.scrollY;
-    var distanceFromBottom = document.documentElement.scrollHeight - (scrollY + window.innerHeight);
-    scrollTopBtn.classList.toggle("visible", scrollY > SCROLL_EDGE_THRESHOLD);
-    scrollBottomBtn.classList.toggle("visible", distanceFromBottom > SCROLL_EDGE_THRESHOLD);
+    scrollTopBtn.classList.toggle("visible", window.scrollY > SCROLL_EDGE_THRESHOLD);
   }
 
   scrollTopBtn.addEventListener("click", function () {
     window.scrollTo({ top: 0, behavior: "smooth" });
-  });
-  scrollBottomBtn.addEventListener("click", function () {
-    window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" });
   });
 
   window.addEventListener("scroll", updateScrollButtons, { passive: true });
