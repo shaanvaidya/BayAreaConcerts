@@ -290,6 +290,15 @@ body.theme-is-dark .theme-toggle .icon-moon { display: block; }
   border: 1px solid var(--accent);
 }
 
+.show-row .tag-sold-out {
+  color: var(--text-dim);
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
+}
+
+.show-row.sold-out { opacity: 0.6; }
+.show-row.sold-out:hover { opacity: 0.85; }
+
 .empty-state {
   color: var(--text-dim);
   padding: 2.5rem 0;

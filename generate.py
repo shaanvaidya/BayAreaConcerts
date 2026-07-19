@@ -25,6 +25,7 @@ def load_shows(state_path: Path) -> dict:
             "date": s["date"],
             "url": s["url"],
             "first_seen": s.get("first_seen", s["date"]),
+            "sold_out": s.get("sold_out", False),
         }
         for s in state["shows"].values()
     ]

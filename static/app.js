@@ -155,6 +155,7 @@
 
       var du = daysUntil(show.date);
       if (du <= REMINDER_WINDOW_DAYS) row.classList.add("soon");
+      if (show.sold_out) row.classList.add("sold-out");
 
       var dateEl = document.createElement("span");
       dateEl.className = "date";
@@ -172,9 +173,20 @@
       row.appendChild(titleEl);
 
       var isNew = daysSince(show.first_seen) >= 0 && daysSince(show.first_seen) <= NEW_WINDOW_DAYS;
-      if (isNew || du <= REMINDER_WINDOW_DAYS) {
+      // Once sold out, "book soon" no longer applies - drop the reminder
+      // tag but keep "New" (still informative: it may have sold out
+      // immediately).
+      var showReminder = !show.sold_out && du <= REMINDER_WINDOW_DAYS;
+      if (isNew || showReminder || show.sold_out) {
         var tagsEl = document.createElement("span");
         tagsEl.className = "tags";
+
+        if (show.sold_out) {
+          var soldOutTag = document.createElement("span");
+          soldOutTag.className = "tag tag-sold-out";
+          soldOutTag.textContent = "Sold Out";
+          tagsEl.appendChild(soldOutTag);
+        }
 
         if (isNew) {
           var newTag = document.createElement("span");
@@ -183,7 +195,7 @@
           tagsEl.appendChild(newTag);
         }
 
-        if (du <= REMINDER_WINDOW_DAYS) {
+        if (showReminder) {
           var soonTag = document.createElement("span");
           soonTag.className = "tag tag-soon";
           soonTag.textContent = du === 0 ? "Today" : du + "d";
