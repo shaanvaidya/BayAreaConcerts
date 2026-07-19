@@ -4,6 +4,8 @@ on:
   schedule:
     # 20:00 UTC = 1hr after automations/concerts.yml's Monday 19:00 UTC run
     - cron: "0 20 * * 1"
+  push:
+    branches: [main]
   workflow_dispatch: {}
 
 permissions:
